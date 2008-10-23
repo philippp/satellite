@@ -37,7 +37,7 @@ public
     @assets = assets.find(:all, :limit => page_size, :offset => page_offset)
 
     respond_to do |format|
-      format.html # index.rhtml
+      format.html { render :layout => "twocolumn75_25" }
       format.xml  { render :xml => @assets.to_xml }
     end
   end
