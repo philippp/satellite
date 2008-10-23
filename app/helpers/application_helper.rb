@@ -1,5 +1,7 @@
 module ApplicationHelper
   include SemanticFormHelper
+  include PageMothHelper
+  include TableMoth
 
   def user_path(user)
     if user.domain?
@@ -7,6 +9,10 @@ module ApplicationHelper
     else
       url_for(:controller => :users, :action => :show, :subdomain => user.login, :port => request.port)
     end
+  end
+
+  def is_owner?
+    current_user == @user
   end
 
 end

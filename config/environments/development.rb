@@ -21,3 +21,5 @@ Debugger.start
 
 ROUTE_DOMAIN = "deluux.dev"
 DOMAIN = "#{ROUTE_DOMAIN}:3000"
+
+PAGE_SIZE = 16

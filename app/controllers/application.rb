@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   include AuthenticatedSystem
   include ExceptionNotifiable
   include AccountLocation
+  include PageMoth
 
   class AccessDenied < StandardError; end
 

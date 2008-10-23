@@ -1,18 +1,30 @@
-<h1>Listing photos</h1>
+<div class="section">
+  <h1>Photos</h1>
+  <% if is_owner? %>
+    <%= link_to( "Add More", new_asset_path ) %>
+  <% end %>
+</div>
 
-<table>
-  <tr>
-  </tr>
+<div class="clearfix">
+<%= pager @user.assets.size %>
+</div>
 
-<% for photo in @photos %>
-  <tr>
-    <td><%= link_to 'Show', photo %></td>
-    <td><%= link_to 'Edit', edit_photo_path(photo) %></td>
-    <td><%= link_to 'Destroy', photo, :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
+<% tablurize(@assets) do |row_assets,options| %>
+  <% rowize(row_assets, options) do |asset| %>
+    <%= link_to(asset_tag(asset,
+                          {:id => "img_asset_#{asset.id}", :size => :thumb}),
+                          asset_path(asset, :context => :all)) %>
+  <% end %>
+  <% rowize(row_assets, options) do |asset| %>
+    <% if !asset.title_abr.empty? %>
+      <%= asset.title_abr %><br />
+    <% end %>
+    <% if asset.comments_count > 0 %>
+      <i><%= pluralize(asset.comments_count, "comment") %></i>
+    <% end %>
+  <% end %>
 <% end %>
-</table>
 
-<br />
-
-<%= link_to 'New photo', new_photo_path %>
+<div class="clearfix">
+<%= pager @user.assets.size %>
+</div>

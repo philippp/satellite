@@ -1,1 +1,4 @@
 page.hide :spinner
+page.show :upload_status_container
+# page.visual_effect :highlight, "upload_status_container"
+page << "$('asset_uploaded_data').value = ''"

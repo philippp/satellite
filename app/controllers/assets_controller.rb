@@ -34,7 +34,7 @@ public
   # GET /assets
   # GET /assets.xml
   def index
-    @assets = assets.find(:all)
+    @assets = assets.find(:all, :limit => page_size, :offset => page_offset)
 
     respond_to do |format|
       format.html # index.rhtml
@@ -68,16 +68,13 @@ public
     respond_to do |format|
       if @asset.save
         flash[:notice] = 'Asset was successfully created.'
-        format.html { 
-          if params[:through_iframe]
-            responds_to_parent do
-              render :template => "photos/create.js.rjs"
-            end
-          else
-            redirect_to asset_url(@asset)
+        format.html { redirect_to asset_url(@asset) }
+        format.xml  { head :created, :location => asset_url(@asset) }
+        format.iframe  { 
+          responds_to_parent do
+            render :template => "photos/create.js.rjs"
           end
         }
-        format.xml  { head :created, :location => asset_url(@asset) }
       else
         format.html { render :action => "new" }
         format.xml  { render :xml => @asset.errors.to_xml }
