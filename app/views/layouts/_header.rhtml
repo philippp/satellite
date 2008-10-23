@@ -1,4 +1,4 @@
-<a href="/">Main</a>
+<%= link_to "Main", home_url %>
 <% if logged_in? %>
 	<%= link_to "Logout", session_path, :method => :delete %>
 <% else %>
