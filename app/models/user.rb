@@ -41,4 +41,8 @@ class User < ActiveRecord::Base
     self.find(:first, options)
   end
 
+  def subdomain
+    self.login
+  end
+
 end

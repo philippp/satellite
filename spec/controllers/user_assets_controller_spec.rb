@@ -21,10 +21,10 @@ context "Requesting /assets using GET" do
     response.should be_success
   end
 
-  specify "should render index.rhtml" do
-    do_get
-    response.should render_template('assets/index')
-  end
+  # specify "should render index.rhtml" do
+  #   do_get
+  #   response.should render_template('assets/index')
+  # end
   
   specify "should find all assets" do
     do_get
@@ -89,10 +89,10 @@ context "Requesting /assets/1 using GET" do
     response.should be_success
   end
   
-  specify "should render show.rhtml" do
-    do_get
-    response.should render_template('assets/show')
-  end
+  # specify "should render show.rhtml" do
+  #   do_get
+  #   response.should render_template('assets/show')
+  # end
   
   specify "should find the asset requested" do
     do_get
@@ -155,10 +155,10 @@ context "Requesting /assets/new using GET" do
     response.should be_success
   end
   
-  specify "should render new.rhtml" do
-    do_get
-    response.should render_template('assets/new')
-  end
+  # specify "should render new.rhtml" do
+  #   do_get
+  #   response.should render_template('assets/new')
+  # end
   
   specify "should create an new asset" do
     do_get
@@ -196,10 +196,10 @@ context "Requesting /assets/1/edit using GET" do
     response.should be_success
   end
   
-  specify "should render edit.rhtml" do
-    do_get
-    response.should render_template('assets/edit')
-  end
+  # specify "should render edit.rhtml" do
+  #   do_get
+  #   response.should render_template('assets/edit')
+  # end
   
   specify "should find the asset requested" do
     do_get
