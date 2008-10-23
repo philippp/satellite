@@ -8,6 +8,8 @@ context "/users/index.rhtml" do
     user_99 = mock_model(User, :id => 99, :login => 'mary')
 
     assigns[:users] = [user_98, user_99]
+    user_98.stub!("domain?").and_return(false)
+    user_99.stub!("domain?").and_return(false)
   end
 
   specify "should render list of users" do

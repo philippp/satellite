@@ -1,0 +1,21 @@
+<%= render :partial => "layouts/head" %>
+
+<body>
+  <div id="doc" class="yui-t7">
+     <div id="hd">
+       <%= render :partial => "layouts/header" %>
+    </div>
+    <div class="yui-ge">
+      <div class="yui-u first" id="main">
+        <%= yield %>
+      </div>
+      <div class="yui-u" id="sidebar">
+        <%= yield :sidebar %>
+      </div>
+    </div>
+    <div id="ft">
+      <%= render :partial => "layouts/footer" %>
+    </div>
+  </div>
+</body>
+</html>

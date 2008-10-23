@@ -41,4 +41,16 @@ class User < ActiveRecord::Base
     self.find(:first, options)
   end
 
+  def domain_if_available
+    if self.domain?
+      self.domain
+    else
+      DOMAIN
+    end
+  end
+
+  def subdomain
+    self.login
+  end
+
 end

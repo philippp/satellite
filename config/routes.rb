@@ -10,9 +10,10 @@ ActionController::Routing::Routes.draw do |map|
     # url looks clean independent of url helper and route names.
     user.resources :user_assets, :opaque_name => :assets
   end
-  
+
   map.connect ':controller/service.wsdl', :action => 'wsdl'
-  map.connect '', :controller => 'users'
+  map.connect '', :controller => 'users', :conditions => { :subdomain => '', :domain => ROUTE_DOMAIN }
+  map.connect '', :controller => 'users', :action => 'show'
 
   map.home '', :controller => 'users', :domain => ROUTE_DOMAIN, :subdomain => false
 

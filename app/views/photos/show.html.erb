@@ -1,0 +1,21 @@
+<div style="min-height: 3.8em; min-width: 5.8em" class="subsection center">
+  <h1 style="width: 474px;">
+  <div id="photo_title" <%= 'class="edit_in_place_box"' if is_owner? %> >
+    <%=h @asset.title %>
+  </div>
+  </h1>
+</div>
+
+<div class="clearfix">
+  <div id="photos" class="media" style="position: relative; float:left;">
+    <div id="asset_<%= @asset.id %>" style="cursor: crosshair;">
+    <%= asset_tag(@asset, {:id => "photo", :size => :bigthumb}, "yes") %>
+    </div>
+    <ul class='rowed' style="font-size: 1.5em; padding: 0.5em 0em;">
+      <li><%= link_to( 'Download', @asset.public_filename, :target => "_new" ) %></li>
+      <% if is_owner? %>
+        <li><%= link_to( 'Delete', asset_path(@asset), :confirm => 'Delete forever?', :method => :delete ) %></li>
+      <% end %>
+    </ul>
+  </div>
+</div>

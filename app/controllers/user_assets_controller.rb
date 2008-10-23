@@ -4,11 +4,6 @@ class UserAssetsController < AssetsController
   delegate_resources_helpers :assets, :to => :user_user_assets, :controller => :user_assets
   delegate_url_helpers :asset_attachable, :to => :user
 
-  # Keep it DRY - we only need one set of templates
-  def self.controller_path
-    AssetsController.controller_path
-  end
-
 protected
   def load_attachable
     # We do both @user and @attachable because @attachable is used by the assets_controller

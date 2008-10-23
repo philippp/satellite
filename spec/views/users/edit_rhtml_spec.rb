@@ -15,6 +15,7 @@ context "/users/edit.rhtml" do
 
     assigns[:user] = @user
     @user.stub!(:domain)
+    @user.stub!("domain?").and_return(false)
   end
 
   specify "should render edit form" do

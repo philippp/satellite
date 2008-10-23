@@ -23,3 +23,5 @@ config.action_mailer.delivery_method = :test
 
 ROUTE_DOMAIN = "test.host"
 DOMAIN = "#{ROUTE_DOMAIN}:3000"
+
+PAGE_SIZE = 16

@@ -1,0 +1,30 @@
+<div class="section">
+  <h1>Photos</h1>
+  <% if is_owner? %>
+    <%= link_to( "Add More", new_asset_path ) %>
+  <% end %>
+</div>
+
+<div class="clearfix">
+<%= pager @user.assets.size %>
+</div>
+
+<% tablurize(@assets) do |row_assets,options| %>
+  <% rowize(row_assets, options) do |asset| %>
+    <%= link_to(asset_tag(asset,
+                          {:id => "img_asset_#{asset.id}", :size => :thumb}),
+                          asset_path(asset, :context => :all)) %>
+  <% end %>
+  <% rowize(row_assets, options) do |asset| %>
+    <% if !asset.title_abr.empty? %>
+      <%= asset.title_abr %><br />
+    <% end %>
+    <% if asset.comments_count > 0 %>
+      <i><%= pluralize(asset.comments_count, "comment") %></i>
+    <% end %>
+  <% end %>
+<% end %>
+
+<div class="clearfix">
+<%= pager @user.assets.size %>
+</div>
