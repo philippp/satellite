@@ -68,7 +68,15 @@ public
     respond_to do |format|
       if @asset.save
         flash[:notice] = 'Asset was successfully created.'
-        format.html { redirect_to asset_url(@asset) }
+        format.html { 
+          if params[:through_iframe]
+            responds_to_parent do
+              render :template => "photos/create.js.rjs"
+            end
+          else
+            redirect_to asset_url(@asset)
+          end
+        }
         format.xml  { head :created, :location => asset_url(@asset) }
       else
         format.html { render :action => "new" }
