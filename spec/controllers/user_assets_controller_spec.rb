@@ -7,7 +7,7 @@ context "Requesting /assets using GET" do
     @asset = mock_model(Asset)
     @assets = mock('Assets Association')
     @assets_array = [@asset]
-    @assets.should_receive(:find).with(:all).and_return(@assets_array)
+    @assets.should_receive(:find).with(:all, :offset => 0, :limit => PAGE_SIZE).and_return(@assets_array)
     User.stub!(:find_by_param).and_return mock_model(User, :assets => @assets)
     Asset.stub!(:find).and_return(@asset)
   end
@@ -43,7 +43,7 @@ context "Requesting /assets.xml using GET" do
     @asset = mock_model(Asset, :to_xml => "XML")
     @assets = mock('Assets Association')
     @assets_array = [@asset]
-    @assets.should_receive(:find).with(:all).and_return(@assets_array)
+    @assets.should_receive(:find).with(:all, :limit => PAGE_SIZE, :offset => 0).and_return(@assets_array)
     User.stub!(:find_by_param).and_return mock_model(User, :assets => @assets)
     Asset.stub!(:find).and_return(@asset)
   end

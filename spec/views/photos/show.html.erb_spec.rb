@@ -4,8 +4,11 @@ describe "/photos/show.html.erb" do
   include PhotosHelper
   
   before(:each) do
-    assigns[:photo] = @photo = stub_model(Photo)
-  end
+    assigns[:asset] = @asset = stub_model(Photo)
+    @asset.stub!(:title).and_return("title")
+    @asset.stub!(:public_filename).and_return("filename")
+    @asset.stub!(:updated_at).and_return(Time.now)
+    end
 
   it "should render attributes in <p>" do
     render "/photos/show.html.erb"
