@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20081022234555) do
+ActiveRecord::Schema.define(:version => 20081023225427) do
 
   create_table "assets", :force => true do |t|
     t.string   "filename"
@@ -23,6 +23,8 @@ ActiveRecord::Schema.define(:version => 20081022234555) do
     t.datetime "created_at"
     t.string   "thumbnail"
     t.integer  "parent_id"
+    t.string   "title"
+    t.text     "description"
   end
 
   create_table "password_resets", :force => true do |t|
@@ -34,14 +36,6 @@ ActiveRecord::Schema.define(:version => 20081022234555) do
   end
 
   add_index "password_resets", ["token"], :name => "index_password_resets_on_token"
-
-  create_table "photos", :force => true do |t|
-    t.string   "title"
-    t.text     "description"
-    t.integer  "view_coun"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
   create_table "users", :force => true do |t|
     t.string   "login"

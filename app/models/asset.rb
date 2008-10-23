@@ -30,15 +30,12 @@ class Asset < ActiveRecord::Base
   def cachebusted_filename(size, stamp = "%I%M%S")
     self.public_filename(size) + "?t=#{self.updated_at.strftime(stamp)}"
   end
-  
-  def title
-    "stub for title"
-  end
-  
+
+  # stub till we have comments
   def comments_count
     0
   end
-  
+
   def title_abr(size = 15)
     if self.title and self.title.length > size
       "#{self.title[0,size]}..."
