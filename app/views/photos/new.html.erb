@@ -3,6 +3,7 @@
 <%= semantic_form_left_column_size(7) %>
 
 <% semantic_form_for(:asset, :url => photos_path, :html => { :multipart => true, :target => "frame" }) do |f| %>
+  <%= hidden_field_tag :through_iframe, true %>
   <%= f.file_field :uploaded_data, :size => 20, :label => "Select a File:" %>
   <%= f.submit_and_spinner "Upload!", {:onclick => "Element.show('spinner');" } %>
 <% end %>

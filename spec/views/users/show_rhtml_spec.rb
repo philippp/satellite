@@ -8,11 +8,12 @@ context "/users/show.rhtml" do
 
     assigns[:user] = @user
     
+    # there is no longer a explicit call to asset_url
     # Views are tested in isolation here - however there are a number of helpers
     # that resource_fu creates which are defined in the controller and exposed to
     # views with helper_method().  We set expectations for calls to those helpers
     # but don't bother wiring them up - they will be tested in helper tests.
-    @controller.template.should_receive(:assets_path).with().and_return('ASSETS_PATH')
+    # @controller.template.should_receive(:assets_path).with().and_return('ASSETS_PATH')
   end
 
   specify "should render attributes in <p>" do
