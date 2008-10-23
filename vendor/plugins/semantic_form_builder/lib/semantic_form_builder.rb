@@ -1,5 +1,7 @@
 class SemanticFormBuilder < ActionView::Helpers::FormBuilder
   include SemanticFormHelper
+  include ActionView::Helpers::AssetTagHelper
+  include ActionView::Helpers::TagHelper
   
   def field_settings(method, options = {}, tag_value = nil)
     field_name = "#{@object_name}_#{method.to_s}"
@@ -66,6 +68,12 @@ class SemanticFormBuilder < ActionView::Helpers::FormBuilder
   def submit(method, options = {})
     field_name, label, options = field_settings(method, options.merge( :label => "&nbsp;"))
     wrapping("submit", field_name, label, super, options)
+  end
+  
+  def submit_and_spinner(submit_name, options = {})
+    submit_button = @template.submit_tag(submit_name, options)
+    spinner = image_tag "spinner.gif", {:id => "spinner", :style => "display:none" }
+    wrapping("submit", nil, "", submit_button+spinner, options)
   end
   
   def submit_and_cancel(submit_name, cancel_name, options = {})
