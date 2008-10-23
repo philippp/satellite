@@ -6,6 +6,7 @@
 
 <% semantic_form_for(:user, :url => user_path(@user), :html => { :method => :put }) do |f| -%>
   <%= render :partial => 'form', :object => f %>
+  <%= f.text_field :domain, :label => "Domain:" %>
   <%= f.submit "Update" %>
 <% end -%>
 
