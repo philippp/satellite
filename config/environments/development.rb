@@ -19,4 +19,5 @@ config.action_mailer.raise_delivery_errors = false
 require 'ruby-debug'
 Debugger.start
 
-DOMAIN = "localhost:3000"
+ROUTE_DOMAIN = "deluux.dev"
+DOMAIN = "#{ROUTE_DOMAIN}:3000"

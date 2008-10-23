@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20081022232426) do
+ActiveRecord::Schema.define(:version => 20081022234555) do
 
   create_table "assets", :force => true do |t|
     t.string   "filename"
@@ -55,10 +55,7 @@ ActiveRecord::Schema.define(:version => 20081022232426) do
     t.datetime "remember_token_expires_at"
     t.integer  "visits_count",                            :default => 0
     t.string   "permalink"
-    t.string   "password_token"
-    t.datetime "password_token_reset_at"
+    t.string   "domain"
   end
-
-  add_index "users", ["password_token"], :name => "password_reset"
 
 end

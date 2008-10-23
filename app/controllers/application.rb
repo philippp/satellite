@@ -4,6 +4,7 @@
 class ApplicationController < ActionController::Base
   include AuthenticatedSystem
   include ExceptionNotifiable
+  include AccountLocation
 
   class AccessDenied < StandardError; end
 
@@ -12,6 +13,7 @@ class ApplicationController < ActionController::Base
 
   # If you want timezones per-user, uncomment this:
   #before_filter :login_required
+  before_filter :find_profile
 
   around_filter :catch_errors
 
@@ -29,6 +31,26 @@ class ApplicationController < ActionController::Base
   protected
     def self.protected_actions
       [ :edit, :update, :destroy ]
+    end
+
+    def request_has_domain?
+      request.domain != ROUTE_DOMAIN
+    end
+
+    def request_has_subdomain?
+      account_subdomain
+    end
+
+    def find_profile
+      if request_has_domain?
+        @user ||= User.find_by_domain(request.domain)
+      elsif request_has_subdomain?
+        @user ||= User.find_by_subdomain(account_subdomain)
+      end
+
+      if (request_has_domain? or request_has_subdomain?) and @user.nil?
+        redirect_to home_url(:domain => ROUTE_DOMAIN, :subdomain => false), :status => 301
+      end
     end
 
   private

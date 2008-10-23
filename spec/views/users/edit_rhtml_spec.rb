@@ -14,11 +14,12 @@ context "/users/edit.rhtml" do
       :time_zone => 'Etc/UTC')
 
     assigns[:user] = @user
+    @user.stub!(:domain)
   end
 
   specify "should render edit form" do
     render "/users/edit.rhtml"
-    response.should have_tag('form', :attributes =>{:action => user_path(@user), :method => 'put'})
+    response.should have_tag('form', :attributes =>{:action => user_path(@user), :method => 'post'})
 
   end
 end

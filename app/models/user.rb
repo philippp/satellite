@@ -26,7 +26,7 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :login, :email, :case_sensitive => false
 
   # Protect internal methods from mass-update.
-  attr_accessible :login, :email, :password, :password_confirmation, :time_zone
+  attr_accessible :login, :email, :password, :password_confirmation, :time_zone, :domain
 
   def to_param
     login
@@ -34,6 +34,11 @@ class User < ActiveRecord::Base
 
   def self.find_by_param(*args)
     find_by_login *args
+  end
+
+  def self.find_by_subdomain(subdomain)
+    options = {:conditions => ["users.login = ?", subdomain]}
+    self.find(:first, options)
   end
 
 end
