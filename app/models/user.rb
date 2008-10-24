@@ -22,12 +22,19 @@ class User < ActiveRecord::Base
   include AuthenticatedBase
   has_many :assets, :as => :attachable
   has_many :albums
+  belongs_to :all_photos_album, :class_name => "Album"
   has_one :password_reset
 
   validates_uniqueness_of :login, :email, :case_sensitive => false
 
   # Protect internal methods from mass-update.
   attr_accessible :login, :email, :password, :password_confirmation, :time_zone, :domain
+
+  def before_create
+    all_photos = Album.create(:title => "All Photos",
+                              :description => "An Album with all your photos!")
+    self.all_photos_album = all_photos
+  end
 
   def to_param
     login
