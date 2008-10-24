@@ -7,12 +7,12 @@ describe "/albums/index.html.erb" do
     assigns[:albums] = [
       stub_model(Album,
         :title => "value for title",
-        :desciption => "value for desciption",
+        :description => "value for description",
         :asset_count => "1"
       ),
       stub_model(Album,
         :title => "value for title",
-        :desciption => "value for desciption",
+        :description => "value for description",
         :asset_count => "1"
       )
     ]
@@ -21,7 +21,7 @@ describe "/albums/index.html.erb" do
   it "should render list of albums" do
     render "/albums/index.html.erb"
     response.should have_tag("tr>td", "value for title", 2)
-    response.should have_tag("tr>td", "value for desciption", 2)
+    response.should have_tag("tr>td", "value for description", 2)
     response.should have_tag("tr>td", "1", 2)
   end
 end

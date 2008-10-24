@@ -6,7 +6,7 @@ describe "/albums/show.html.erb" do
   before(:each) do
     assigns[:album] = @album = stub_model(Album,
       :title => "value for title",
-      :desciption => "value for desciption",
+      :description => "value for description",
       :asset_count => "1"
     )
   end
@@ -14,7 +14,7 @@ describe "/albums/show.html.erb" do
   it "should render attributes in <p>" do
     render "/albums/show.html.erb"
     response.should have_text(/value\ for\ title/)
-    response.should have_text(/value\ for\ desciption/)
+    response.should have_text(/value\ for\ description/)
     response.should have_text(/1/)
   end
 end

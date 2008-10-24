@@ -13,7 +13,7 @@ ActiveRecord::Schema.define(:version => 20081024202016) do
 
   create_table "albums", :force => true do |t|
     t.string   "title"
-    t.text     "desciption"
+    t.text     "description"
     t.integer  "user_id"
     t.integer  "asset_count"
     t.datetime "created_at"

@@ -2,12 +2,12 @@
 
 one:
   title: MyString
-  desciption: MyText
+  description: MyText
   user_id: 1
   asset_count: 1
 
 two:
   title: MyString
-  desciption: MyText
+  description: MyText
   user_id: 1
   asset_count: 1

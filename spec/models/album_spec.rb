@@ -4,7 +4,7 @@ describe Album do
   before(:each) do
     @valid_attributes = {
       :title => "value for title",
-      :desciption => "value for desciption",
+      :description => "value for description",
       :user_id => "1",
       :asset_count => "1"
     }
