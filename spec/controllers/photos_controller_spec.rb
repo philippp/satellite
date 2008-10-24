@@ -2,7 +2,25 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe PhotosController do
 
-  # photos is currently extended from assets
+  before(:each) do
+    @asset = mock_model(Asset)
+    @assets = mock('Assets Association')
+    @assets_array = [@asset]
+    @assets.should_receive(:find).with(:all, :offset => 0, :limit => PAGE_SIZE).and_return(@assets_array)
+    User.stub!(:find_by_subdomain).and_return mock_model(User, :assets => @assets)
+    Asset.stub!(:find).and_return(@asset)
+    @request.host = "paul.test.host"
+    @user = mock_user
+  end
+  
+  def do_get
+    get :index, :user_id => "joe"
+  end
+  
+  specify "should be successful" do
+    do_get
+    response.should be_success
+  end
 
   # def mock_photo(stubs={})
   #   @mock_photo ||= mock_model(Photo, stubs)
