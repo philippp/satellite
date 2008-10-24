@@ -1,5 +1,6 @@
 module AssetsHelper
 
+  # todo: get rid of all of this code
   def asset_tag(asset, options = {}, autostart = "no")
     return "" unless asset
     if options[:embed_params]

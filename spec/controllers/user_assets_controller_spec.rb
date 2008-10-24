@@ -230,10 +230,16 @@ context "Requesting /assets using POST" do
     do_post
   end
 
+  specify "should create a new asset" do
+    post :create, :asset => {:name => 'Asset'}, :user_id => "joe", :format => "iframe"
+    response.should render_template("photos/create.js.rjs")
+  end
+
   specify "should redirect to the new asset" do
     do_post
     response.should redirect_to("http://test.host/users/joe/assets/1")
   end
+  
 end
 
 context "Requesting /assets/1 using PUT" do
@@ -303,4 +309,18 @@ context "Requesting /assets/1 using DELETE" do
     do_delete
     response.should redirect_to("http://test.host/users/joe/assets")
   end
+  
+  context "but you are the wrong user" do
+
+    before(:each) do
+      controller.stub!(:check_auth).and_return false
+    end
+
+    specify "should redirect to the assets list" do
+      do_delete
+      response.should redirect_to("http://test.host/users/joe/assets")
+    end
+
+  end
+  
 end
