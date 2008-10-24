@@ -20,6 +20,7 @@ class TagsController < ApplicationController
             page << "photo_tagger.reload_tags();"
             page << "photo_tagger.show_tags();"
             page << "photo_tagger.cancelForm();"
+            page << "update_tag_list('#{name}');"
             page["create-tag-response"].update("Created tag for #{@friend.name}")
 
           }}

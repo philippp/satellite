@@ -25,3 +25,27 @@
   <%= render :partial => "tags/create", :locals => {:asset => @asset} %>
 </div>
 
+<% content_for("sidebar") do %>
+
+<script type="text/javascript">
+
+  var update_tag_list = function( friend_name ){
+    tag_list = $("tag-list");
+    new_tag_li = new Element("li").update(friend_name);
+    if( typeof(tag_list.firstChild) != "undefined" ){
+       tag_list.insertBefore( new_tag_li, tag_list.firstChild  );
+    }else{
+      tag_list.appendChild(new_tag_li);
+    }
+  }
+
+
+</script>
+
+Friends in this photo  
+<ul id="tag-list">
+  <% @asset.tags.each do |tag| %>
+    <li><%= tag.friend.name %></li>
+  <% end %>
+</ul>
+<% end %>
