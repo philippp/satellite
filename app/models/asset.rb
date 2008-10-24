@@ -19,7 +19,8 @@
 
 class Asset < ActiveRecord::Base
   belongs_to :attachable, :polymorphic => true
-
+  has_many :tags
+  
   has_attachment :storage => :file_system,
     :thumbnails => { :bigthumb => '400>', :thumb => '120>', :tiny => '50>' },
     :max_size => 5.megabytes,

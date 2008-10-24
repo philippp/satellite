@@ -12,13 +12,15 @@ var PhotoTagger = Class.create(
      * Shows all labels
      */
     onMouseover: function(e){
+      this.photoTagger.show_tags();
+    },
 
-      for (var i=0; i < this.photoTagger.tags.length; i++) {
-	tag = this.photoTagger.tags[i];
+    show_tags: function(){
+      for (var i=0; i < this.tags.length; i++) {
+	tag = this.tags[i];
 	//  /100 for percent conversion
-	style = "left:"+ this.width * (tag.x / 100) +"px; top:"+ this.height * (tag.y / 100) +"px; display:block;";
+	style = "left:"+ $(this.image_id).width * (tag.x / 100) +"px; top:"+ $(this.image_id).height * (tag.y / 100) +"px; display:block;";
 	$("pt-tag-" + tag.id).setStyle(style);
-	a = 1;
       }
 
       $$('div.pt-tag').each(Element.show);
@@ -57,7 +59,7 @@ var PhotoTagger = Class.create(
 
       // form location
       x_pointer_offset = -40;
-      y_pointer_offset = 45;
+      y_pointer_offset = 38;
 
       form_x = abs_x + x_pointer_offset;
       form_y = abs_y + y_pointer_offset; // Relative to containing element in jQ? (was click_abs_y_loc + y_pointer_offset);
@@ -66,17 +68,37 @@ var PhotoTagger = Class.create(
       frame_x = abs_x - (frame_width/2);
       frame_y = abs_y - (frame_height/2);
 
-      frame_style = "position:absolute; top:"+ (frame_y - 4) +"px; left:"+ frame_x +"px; border:0.3em solid #cccccc; width:7em; height:6em;z-index:10;color:black;display:block";
+      frame_style = "position:absolute; top:"+ (frame_y - 4) +"px; left:"+ frame_x +"px; border:0.3em solid #cccccc; width:7em; height:6em;z-index:10;color:black;display:block; z-index:10001;";
 
-      style = "position: absolute;color:black; top:" + form_y + "px; left:" + form_x + "px; background-color:white; border: 0.3em solid #cccccc; padding:0.5em;";
+      style = "position: absolute;color:black; top:" + form_y + "px; left:" + form_x + "px; background-color:white; border: 0.3em solid #cccccc; padding:0.5em; z-index:10001;";
 
       $('pt-taggerframe').setStyle(frame_style);
       $('pt-taggerframe').show();
 
-      $(this.pt_form_id).setStyle(style);
-      $(this.pt_form_id).show();
+      $('x').value = parseInt((tag_x/this.width)*100);
+      $('y').value = parseInt((tag_y/this.height)*100);
 
-      PhotoTagger.render_tagger(this);
+      $('friend_name').value = "";
+      $('create-tag-response').update("");
+
+      $(this.photoTagger.pt_form_id).setStyle(style);
+      $(this.photoTagger.pt_form_id).show();
+      $('friend_name').focus();
+    },
+
+    /**
+     * Render any tags that are not rendered yet
+     */
+    reload_tags : function(){
+      for (var i=0; i < this.tags.length; i++) {
+	tag = this.tags[i];
+	if( $("pt-tag-"+tag.id) == null ){
+	  tag_elem = new Element('div',{"id": "pt-tag-"+tag.id, "class": "pt-tag", "style":"display:none;"});
+	  tag_elem.update(tag.name);
+	  $(this.image_id).parentNode.appendChild(tag_elem);
+	}
+      }
+
     },
 
     init_labeler : function(){
@@ -89,8 +111,9 @@ var PhotoTagger = Class.create(
       $(image_id).style.cursor = "crosshair";
       $(image_id).photoTagger = this;
       $(image_id).parentNode.appendChild($(form_id)); //needs to be adjacent to img element
-      $(image_id).pt_form_id = form_id;
+      $(image_id).photoTagger.pt_form_id = form_id;
 
+      this.image_id = image_id;
       this.tags = tags_arr;
 
       $$('img#'+image_id).invoke('observe','mouseover', this.onMouseover);
@@ -108,30 +131,20 @@ var PhotoTagger = Class.create(
       for (var i=0; i < this.tags.length; i++) {
 	tag = this.tags[i];
 	tag_elem = new Element('div',{"id": "pt-tag-"+tag.id, "class": "pt-tag", "style":"display:none;"});
-	tag_elem.update(tag.text);
+	tag_elem.update(tag.name);
 	$(image_id).parentNode.appendChild(tag_elem);
       }
+    },
+
+    cancelForm : function(){
+      new Effect.Fade(this.pt_form_id);
+      new Effect.Fade("pt-taggerframe");
     },
 
     tags : []
 
 
 });
-
-
-
-PhotoTagger.render_tagger = function(img_element){
-
-	/**
-      $('image_x').value = img_element.width; //x_loc;
-      $('image_y').value = img_element.height; //y_loc;
-
-      $('x').value = label_x; //x_loc;
-      $('y').value = label_y; //y_loc;
-      $('friend_name_label_<%= @asset.id %>').value = '';
-      $('friend_name_label_<%= @asset.id %>').focus();
-*/
-};
 
 
 /**
