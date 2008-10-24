@@ -52,6 +52,14 @@ class ApplicationController < ActionController::Base
       end
     end
 
+    # this is because url_for isn't monkey patched to do this
+    # url_for(:host => .., :path => false)
+    def user_url(user = @user, params = {})
+      if user
+        user.url(request, nil, params)
+      end
+    end
+
   private
 
     def catch_errors

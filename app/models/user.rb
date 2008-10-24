@@ -50,7 +50,27 @@ class User < ActiveRecord::Base
   end
 
   def subdomain
-    self.login
+    self.login.downcase
+  end
+
+  def hostname_only
+    if self.domain?
+      self.domain
+    elsif self.subdomain
+      "#{self.subdomain}.#{ROUTE_DOMAIN}"
+    end
+  end
+
+  # url_for isn't monkey patched yet
+  def url(request = nil, port = nil, params = {})
+    url = "http://#{hostname_only}"
+    if request and request.port != 80
+      url += ":#{request.port}"
+    elsif port and port != 80
+      url += ":#{port}"
+    end
+    url += "/?#{params.to_query}" if params != {}
+    url
   end
 
 end

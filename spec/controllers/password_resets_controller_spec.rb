@@ -93,6 +93,8 @@ describe PasswordResetsController do
         @user = mock_password_reset.user
         @mock_password_reset.stub!(:destroy)
         @user.stub!(:update_attributes)
+        @user.stub!("domain?").and_return(false)
+        @user.stub!("url").and_return("http://paul.#{DOMAIN}/")
       end
 
       it "should update the requested user" do
@@ -119,7 +121,7 @@ describe PasswordResetsController do
         PasswordReset.stub!(:find_by_token).and_return(mock_password_reset(:update_attributes => true))
         @user.should_receive(:update_attributes).and_return(true)
         put :update, :token => "atoken"
-        response.should redirect_to(user_url(mock_user))
+        response.should redirect_to(user_url(@user))
       end
 
     end

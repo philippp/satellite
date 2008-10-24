@@ -41,6 +41,7 @@ public
 
   # GET /users/1/edit
   def edit
+    @user = User.find_by_login(params[:id])
   end
 
   # POST /users

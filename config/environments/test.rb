@@ -22,6 +22,6 @@ config.action_controller.allow_forgery_protection    = false
 config.action_mailer.delivery_method = :test
 
 ROUTE_DOMAIN = "test.host"
-DOMAIN = "#{ROUTE_DOMAIN}:3000"
+DOMAIN = "#{ROUTE_DOMAIN}:80"
 
 PAGE_SIZE = 16
