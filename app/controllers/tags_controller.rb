@@ -68,6 +68,7 @@ class TagsController < ApplicationController
   end
 
   def load_tag
+    tag_id = params[:id] || params[:tag_id] || (raise "id not specified")    
     @tag = Tag.find(params[:id]) || Tag.find(params[:tag_id]) 
   end
 
