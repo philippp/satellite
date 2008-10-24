@@ -32,8 +32,9 @@ class User < ActiveRecord::Base
 
   def before_create
     all_photos = Album.create(:title => "All Photos",
-                              :description => "An Album with all your photos!")
+                              :description => "An Album with all your photos.")
     self.all_photos_album = all_photos
+    self.albums << all_photos
   end
 
   def to_param

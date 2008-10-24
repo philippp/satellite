@@ -18,6 +18,15 @@
   <%=h @album.asset_count %>
 </p>
 
+<div class="clearfix">
+<%= pager @album.assets.size %>
+</div>
+
+<%= render :partial => "assets/assets_table", :locals => {:assets => @user.assets} %>
+
+<div class="clearfix">
+<%= pager @album.assets.size %>
+</div>
 
 <%= link_to 'Edit', edit_album_path(@album) %> |
 <%= link_to 'Back', albums_path %>

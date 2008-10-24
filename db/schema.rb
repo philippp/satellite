@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20081024204839) do
+ActiveRecord::Schema.define(:version => 20081024232531) do
 
   create_table "album_assets", :force => true do |t|
     t.integer  "album_id"
@@ -96,6 +96,7 @@ ActiveRecord::Schema.define(:version => 20081024204839) do
     t.string   "permalink"
     t.string   "domain"
     t.integer  "all_photos_album_id"
+    t.integer  "assets_count",                            :default => 0
   end
 
 end

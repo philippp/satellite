@@ -1,4 +1,7 @@
 class AlbumsController < ApplicationController
+
+  delegate_resources_helpers :assets, :to => :photos, :controller => :photos
+
   # GET /albums
   # GET /albums.xml
   def index
@@ -13,6 +16,8 @@ class AlbumsController < ApplicationController
   # GET /albums/1
   # GET /albums/1.xml
   def show
+    # setups up page, but album isn't current paginated
+    page
     @album = Album.find(params[:id])
 
     respond_to do |format|
