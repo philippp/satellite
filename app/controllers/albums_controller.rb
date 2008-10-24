@@ -2,7 +2,7 @@ class AlbumsController < ApplicationController
   # GET /albums
   # GET /albums.xml
   def index
-    @albums = Album.find(:all)
+    @albums = @user.albums
 
     respond_to do |format|
       format.html # index.html.erb
@@ -41,6 +41,7 @@ class AlbumsController < ApplicationController
   # POST /albums.xml
   def create
     @album = Album.new(params[:album])
+    @album.user = current_user
 
     respond_to do |format|
       if @album.save

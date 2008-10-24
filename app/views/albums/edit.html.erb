@@ -1,28 +1,11 @@
 <h1>Editing album</h1>
 
-<% form_for(@album) do |f| %>
-  <%= f.error_messages %>
+<%= semantic_form_left_column_size(5) %>
 
-  <p>
-    <%= f.label :title %><br />
-    <%= f.text_field :title %>
-  </p>
-  <p>
-    <%= f.label :desciption %><br />
-    <%= f.text_area :desciption %>
-  </p>
-  <p>
-    <%= f.label :user_id %><br />
-    <%= f.text_field :user_id %>
-  </p>
-  <p>
-    <%= f.label :asset_count %><br />
-    <%= f.text_field :asset_count %>
-  </p>
-  <p>
-    <%= f.submit "Update" %>
-  </p>
-<% end %>
+<% semantic_form_for(:album, :url => album_path(@album), :html => { :method => :put }) do |f| -%>
+  <%= render :partial => 'form', :object => f %>
+  <%= f.submit "Update" %>
+<% end -%>
 
 <%= link_to 'Show', @album %> |
 <%= link_to 'Back', albums_path %>

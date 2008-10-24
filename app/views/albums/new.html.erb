@@ -1,27 +1,12 @@
 <h1>New album</h1>
 
-<% form_for(@album) do |f| %>
-  <%= f.error_messages %>
+<%= error_messages_for :album %>
 
-  <p>
-    <%= f.label :title %><br />
-    <%= f.text_field :title %>
-  </p>
-  <p>
-    <%= f.label :desciption %><br />
-    <%= f.text_area :desciption %>
-  </p>
-  <p>
-    <%= f.label :user_id %><br />
-    <%= f.text_field :user_id %>
-  </p>
-  <p>
-    <%= f.label :asset_count %><br />
-    <%= f.text_field :asset_count %>
-  </p>
-  <p>
-    <%= f.submit "Create" %>
-  </p>
-<% end %>
+<%= semantic_form_left_column_size(5) %>
+
+<% semantic_form_for(:album, :url => albums_path) do |f| -%>
+  <%= render :partial => 'form', :object => f %>
+  <%= f.submit "Create" %>
+<% end -%>
 
 <%= link_to 'Back', albums_path %>
