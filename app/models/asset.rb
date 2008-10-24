@@ -25,8 +25,8 @@ class Asset < ActiveRecord::Base
   has_many :albums, :through => :asset_albums
 
   has_attachment :storage => :file_system,
-    :thumbnails => { :bigthumb => '400>', :thumb => '120>', :tiny => '50>' },
-    :max_size => 5.megabytes,
+    :thumbnails => { :bigthumb => '500x500>', :mediumthumb => '240x240>', :thumb => '120x120>', :tiny => '50x50>' },
+    :max_size => 10.megabytes,
     :path_prefix => "public/assets"
 
   # this url will change every time the datafile is rotated,
