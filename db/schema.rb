@@ -9,7 +9,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20081024203323) do
+ActiveRecord::Schema.define(:version => 20081024204839) do
+
+  create_table "album_assets", :force => true do |t|
+    t.integer  "album_id"
+    t.integer  "asset_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "album_assets", ["album_id"], :name => "index_album_assets_on_album_id"
+  add_index "album_assets", ["asset_id"], :name => "index_album_assets_on_asset_id"
 
   create_table "albums", :force => true do |t|
     t.string   "title"

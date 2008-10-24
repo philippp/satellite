@@ -18,9 +18,12 @@
 #
 
 class Asset < ActiveRecord::Base
-  belongs_to :attachable, :polymorphic => true
+  belongs_to :attachable, :polymorphic => true, :counter_cache => :assets_count
   has_many :tags
-  
+
+  has_many :asset_albums, :dependent => :destroy, :include => [:asset => [:datafile]]
+  has_many :albums, :through => :asset_albums
+
   has_attachment :storage => :file_system,
     :thumbnails => { :bigthumb => '400>', :thumb => '120>', :tiny => '50>' },
     :max_size => 5.megabytes,

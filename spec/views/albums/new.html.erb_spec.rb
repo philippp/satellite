@@ -18,7 +18,6 @@ describe "/albums/new.html.erb" do
     response.should have_tag("form[action=?][method=post]", albums_path) do
       with_tag("input#album_title[name=?]", "album[title]")
       with_tag("textarea#album_description[name=?]", "album[description]")
-      with_tag("input#album_asset_count[name=?]", "album[asset_count]")
     end
   end
 end
