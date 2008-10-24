@@ -22,7 +22,7 @@
 <%= pager @album.assets.size %>
 </div>
 
-<%= render :partial => "assets/assets_table", :locals => {:assets => @user.assets} %>
+<%= render :partial => "assets/assets_table", :locals => {:assets => @album.assets, :context => "a_#{@album.id}"} %>
 
 <div class="clearfix">
 <%= pager @album.assets.size %>

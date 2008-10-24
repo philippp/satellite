@@ -9,7 +9,7 @@
 <%= pager @user.assets.size %>
 </div>
 
-<%= render :partial => "assets_table", :locals => {:assets => @user.assets} %>
+<%= render :partial => "assets/assets_table", :locals => {:assets => @user.assets, :context => :all} %>
 
 <div class="clearfix">
 <%= pager @user.assets.size %>

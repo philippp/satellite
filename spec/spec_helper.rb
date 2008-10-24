@@ -31,6 +31,18 @@ Spec::Runner.configure do |config|
     )
   end
 
+  def mock_asset
+    user = mock_model(User,
+      :public_filename => "filename",
+      :width => 100,
+      :height => 100,
+      :width_guess => 100,
+      :height_guess => 100,
+      :cachebusted_filename => "cache_busted",
+      :title_abr => "title",
+      :comments_count => 0 )
+  end
+
   # == Fixtures
   #
   # You can declare fixtures for each example_group like this:
