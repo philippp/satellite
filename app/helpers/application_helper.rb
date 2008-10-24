@@ -3,18 +3,6 @@ module ApplicationHelper
   include PageMothHelper
   include TableMoth
 
-  # this is because url_for isn't monkey patched to do this
-  # url_for(:host => .., :path => false)
-  def user_url(user)
-    user.url(request)
-  end
-
-  # this is because url_for isn't monkey patched to do this
-  # url_for(:host => .., :path => false)
-  def user_path(user)
-    user_url(user)
-  end
-
   def is_owner?
     current_user == @user
   end

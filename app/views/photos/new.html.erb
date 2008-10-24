@@ -11,8 +11,7 @@
 <div id="upload_status_container" class="notification-outer" style="display: none;">
   <h2>Done</h2>
   <b>
-    <%= link_to "Go to your photos",
-                 photos_path(:host => current_user.domain_if_available, :only_path => false, :port => request.port) %>
+    <%= link_to "Go to your photos", photos_path %>
   </b>
 </div>
 
