@@ -8,7 +8,7 @@
 
 <div class="clearfix">
   <div id="photos" class="media" style="position: relative; float:left;">
-    <div id="asset_<%= @asset.id %>" style="cursor: crosshair;">
+    <div id="asset_<%= @asset.id %>">
     <%= asset_tag(@asset, {:id => "photo", :size => :bigthumb}, "yes") %>
     </div>
     <ul class='rowed' style="font-size: 1.5em; padding: 0.5em 0em;">
@@ -19,3 +19,9 @@
     </ul>
   </div>
 </div>
+
+
+<div id="tag_form" style="display:none;">
+  <%= render :partial => "tag_form" %>
+</div>
+
