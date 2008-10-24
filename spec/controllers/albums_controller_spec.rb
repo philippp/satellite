@@ -6,19 +6,38 @@ describe AlbumsController do
     @mock_album ||= mock_model(Album, stubs)
   end
   
+  before(:each) do
+    @request.host = "paul.test.host"
+    @user = mock_model(User)
+    User.stub!(:find_by_subdomain).and_return @user
+    # @user = mock_model(User)
+    # @album.stub!("user=").and_return(@user)
+    # @albums = [@album]
+    # @albums.stub!(:to_xml).and_return("generated XML")
+    # @user.stub!(:albums).and_return(@albums)
+  end
+  
   describe "responding to GET index" do
 
+    before(:each) do
+      @album = mock_album
+      @user.stub!(:albums).and_return([mock_album])
+    end
+
     it "should expose all albums as @albums" do
-      Album.should_receive(:find).with(:all).and_return([mock_album])
       get :index
       assigns[:albums].should == [mock_album]
     end
 
     describe "with mime type of xml" do
-  
+
+      before(:each) do
+        @albums.stub!(:to_xml).and_return("generated XML")
+      end
+
       it "should render all albums as xml" do
         request.env["HTTP_ACCEPT"] = "application/xml"
-        Album.should_receive(:find).with(:all).and_return(albums = mock("Array of Albums"))
+        @user.should_receive(:albums).and_return(albums = mock("Array of Albums"))
         albums.should_receive(:to_xml).and_return("generated XML")
         get :index
         response.body.should == "generated XML"
@@ -73,15 +92,19 @@ describe AlbumsController do
   describe "responding to POST create" do
 
     describe "with valid params" do
-      
+
+      before(:each) do
+        @album = mock_album(:save => true, "user=" => mock_user)
+      end
+
       it "should expose a newly created album as @album" do
-        Album.should_receive(:new).with({'these' => 'params'}).and_return(mock_album(:save => true))
-        post :create, :album => {:these => 'params'}
+        Album.should_receive(:new).with({'title' => 'a great title'}).and_return(mock_album)
+        post :create, :album => {:title => 'a great title'}
         assigns(:album).should equal(mock_album)
       end
 
       it "should redirect to the created album" do
-        Album.stub!(:new).and_return(mock_album(:save => true))
+        Album.stub!(:new).and_return(mock_album)
         post :create, :album => {}
         response.should redirect_to(album_url(mock_album))
       end
@@ -90,14 +113,18 @@ describe AlbumsController do
     
     describe "with invalid params" do
 
+      before(:each) do
+        @album = mock_album(:save => false, "user=" => mock_user)
+      end
+
       it "should expose a newly created but unsaved album as @album" do
-        Album.stub!(:new).with({'these' => 'params'}).and_return(mock_album(:save => false))
+        Album.stub!(:new).with({'these' => 'params'}).and_return(mock_album)
         post :create, :album => {:these => 'params'}
         assigns(:album).should equal(mock_album)
       end
 
       it "should re-render the 'new' template" do
-        Album.stub!(:new).and_return(mock_album(:save => false))
+        Album.stub!(:new).and_return(mock_album)
         post :create, :album => {}
         response.should render_template('new')
       end
