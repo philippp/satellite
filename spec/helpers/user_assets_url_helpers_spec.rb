@@ -42,6 +42,7 @@ context "the generated url helpers for UserAssetsController" do
   end
 
   specify "should return asset_attachable path" do
-    asset_attachable_path(@user).should eql("/users/joe")
+    @user.stub!(:url).and_return("http://joe.#{DOMAIN}/")
+    asset_attachable_path(@user).should eql("http://joe.#{DOMAIN}/")
   end
 end

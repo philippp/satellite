@@ -10,6 +10,8 @@ context "/users/index.rhtml" do
     assigns[:users] = [user_98, user_99]
     user_98.stub!("domain?").and_return(false)
     user_99.stub!("domain?").and_return(false)
+    user_98.stub!(:url).and_return("http://joe.#{DOMAIN}/")
+    user_99.stub!(:url).and_return("http://mary.#{DOMAIN}/")
   end
 
   specify "should render list of users" do

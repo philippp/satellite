@@ -61,7 +61,8 @@ class User < ActiveRecord::Base
     end
   end
 
-  # url_for isn't monkey patched yet
+  # this is because url_for isn't monkey patched to do this
+  # url_for(:host => .., :path => false)
   def url(request = nil, port = nil, params = {})
     url = "http://#{hostname_only}"
     if request and request.port != 80

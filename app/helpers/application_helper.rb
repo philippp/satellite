@@ -3,16 +3,16 @@ module ApplicationHelper
   include PageMothHelper
   include TableMoth
 
+  # this is because url_for isn't monkey patched to do this
+  # url_for(:host => .., :path => false)
   def user_url(user)
-    if user.domain?
-      url_for(:host => user.domain, :port => request.port, :controller => :users, :action => :show)
-    else
-      if request.port != 80
-        url_for(:controller => :users, :action => :show, :subdomain => user.login, :port => request.port)
-      else
-        url_for(:controller => :users, :action => :show, :subdomain => user.login)
-      end
-    end
+    user.url(request)
+  end
+
+  # this is because url_for isn't monkey patched to do this
+  # url_for(:host => .., :path => false)
+  def user_path(user)
+    user_url(user)
   end
 
   def is_owner?

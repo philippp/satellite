@@ -15,6 +15,7 @@ context "/users/edit.rhtml" do
 
     assigns[:user] = @user
     @user.stub!(:domain)
+    @user.stub!(:url).and_return("http://foo.#{DOMAIN}/")
     @user.stub!("domain?").and_return(false)
   end
 

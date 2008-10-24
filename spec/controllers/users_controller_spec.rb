@@ -238,7 +238,7 @@ context "Requesting /users using POST" do
     @user = mock_model(User, :to_param => "paul", :save => true, :login => "paul")
     User.stub!(:new).and_return(@user)
     @user.stub!("domain?").and_return(false)
-    @user.stub!("url").and_return("http://paul.#{DOMAIN}/")
+    @user.stub!(:url).and_return("http://paul.#{DOMAIN}/")
   end
 
   def do_post
