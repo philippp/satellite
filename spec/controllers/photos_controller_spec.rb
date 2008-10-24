@@ -2,6 +2,8 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe PhotosController do
 
+  # photos is currently extended from assets
+
   # def mock_photo(stubs={})
   #   @mock_photo ||= mock_model(Photo, stubs)
   # end
