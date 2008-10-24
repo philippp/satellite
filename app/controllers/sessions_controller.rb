@@ -1,7 +1,4 @@
-# This controller handles the login/logout function of the site.
 class SessionsController < ApplicationController
-  # If you want "remember me" functionality, add this before_filter to Application Controller
-  before_filter :login_from_cookie
 
   layout "1col"
 
@@ -10,12 +7,10 @@ class SessionsController < ApplicationController
 
   def create
     if params[:session]
-      self.current_user = User.authenticate(params[:session][:login], params[:session][:password])
+      user = User.authenticate(params[:session][:login], params[:session][:password])
     end
-    if logged_in?
-      self.current_user.remember_me
-      cookies[:auth_token] = { :value => self.current_user.remember_token,
-                               :expires => self.current_user.remember_token_expires_at }
+    if user
+      login_user(user)
       redirect_back_or_default('/')
       flash[:notice] = "Logged in successfully"
     else

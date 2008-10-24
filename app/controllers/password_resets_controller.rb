@@ -15,10 +15,7 @@ class PasswordResetsController < ApplicationController
     @password_reset = PasswordReset.find_by_token(params[:token])
     @user = @password_reset.user
     if @password_reset.user
-      self.current_user = @password_reset.user
-      self.current_user.remember_me
-      cookies[:auth_token] = { :value => self.current_user.remember_token,
-                               :expires => self.current_user.remember_token_expires_at }
+      login_user(@password_reset.user)
     end
   end
 

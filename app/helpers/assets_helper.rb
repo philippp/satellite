@@ -3,19 +3,12 @@ module AssetsHelper
   # todo: get rid of all of this code
   def asset_tag(asset, options = {}, autostart = "no")
     return "" unless asset
-    if options[:embed_params]
-      options.delete(:embed_params)
-      options = options.merge( {:a_filename => asset.public_filename, :a_title => asset.title } )
-      if asset.is_audio?
-        options = options.merge({ :a_type => "audio"})
-      else
-        options = options.merge({ :a_type => "image"})
-      end
-    end
     if options[:size]
       options = options.merge({:class => "asset #{options[:size].to_s}"})
     end
-    options[:alt] = asset.page_title if asset.respond_to?(:page_title)
+    if asset.respond_to?(:page_title)
+      options[:alt] = asset.page_title
+    end
 
     options = options.merge({:asset_id => asset.id})
     if asset.public_filename.include? "mp3"

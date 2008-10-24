@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20081023225427) do
+ActiveRecord::Schema.define(:version => 20081024073811) do
 
   create_table "assets", :force => true do |t|
     t.string   "filename"
@@ -27,6 +27,23 @@ ActiveRecord::Schema.define(:version => 20081023225427) do
     t.text     "description"
   end
 
+  create_table "contacts", :force => true do |t|
+    t.text     "point"
+    t.string   "source"
+    t.integer  "friend_id"
+    t.string   "contact_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "friends", :force => true do |t|
+    t.string   "name"
+    t.integer  "tags_count"
+    t.integer  "contacts_count"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "password_resets", :force => true do |t|
     t.integer  "user_id"
     t.string   "token"
@@ -36,6 +53,15 @@ ActiveRecord::Schema.define(:version => 20081023225427) do
   end
 
   add_index "password_resets", ["token"], :name => "index_password_resets_on_token"
+
+  create_table "tags", :force => true do |t|
+    t.integer  "asset_id"
+    t.integer  "friend_id"
+    t.integer  "x"
+    t.integer  "y"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", :force => true do |t|
     t.string   "login"

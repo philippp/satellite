@@ -31,7 +31,8 @@ context "/session POST" do
   end
 
   specify 'should login user' do
-    controller.should_receive(:logged_in?).and_return(true)
+    controller.stub!(:current_user).and_return(@user)
+    controller.should_receive("current_user=").with(@user)
     post :create, :session => {}
   end
 
@@ -90,7 +91,7 @@ context "/session POST when invalid" do
   end
 
   specify 'should login user' do
-    controller.should_receive(:logged_in?).and_return(false)
+    controller.should_not_receive("current_user=")
     post :create
   end
 

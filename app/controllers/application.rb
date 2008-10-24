@@ -12,6 +12,7 @@ class ApplicationController < ActionController::Base
   # Pick a unique cookie name to distinguish our session data from others'
   session :session_key => '_trunk_session_id'
 
+  before_filter :login_from_cookie
   before_filter :find_profile
 
   around_filter :catch_errors
@@ -64,6 +65,14 @@ class ApplicationController < ActionController::Base
     # url_for(:host => .., :path => false)
     def user_path(user)
       user_url(user)
+    end
+
+    def login_user(user)
+      self.current_user = user
+      self.current_user.remember_me
+      cookies[:auth_token] = { :value => self.current_user.remember_token,
+                               :expires => self.current_user.remember_token_expires_at,
+                               :domain => ".#{request.domain}" }
     end
 
   private
