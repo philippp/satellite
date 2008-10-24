@@ -1,5 +1,13 @@
 module AssetsHelper
 
+  def context
+    if defined? @album
+      "a_#{@album.id}"
+    else
+      :all
+    end
+  end
+
   # todo: get rid of all of this code
   def asset_tag(asset, options = {}, autostart = "no")
     return "" unless asset
