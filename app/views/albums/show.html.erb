@@ -1,0 +1,23 @@
+<p>
+  <b>Title:</b>
+  <%=h @album.title %>
+</p>
+
+<p>
+  <b>Desciption:</b>
+  <%=h @album.desciption %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%=h @album.user_id %>
+</p>
+
+<p>
+  <b>Asset count:</b>
+  <%=h @album.asset_count %>
+</p>
+
+
+<%= link_to 'Edit', edit_album_path(@album) %> |
+<%= link_to 'Back', albums_path %>
