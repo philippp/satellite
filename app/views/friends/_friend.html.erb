@@ -1,0 +1,7 @@
+<p>
+  <%= link_to friend.name, friend_path(friend) %> <% if friend.tags_count > 0 %> is tagged in <%= pluralize( friend.tags_count, "photo" ) %><% end %>
+</p>
+
+<% friend.tags.each do |tag| %>
+  <%= link_to( image_tag( tag.asset.public_filename( "tiny" ), :alt => tag.asset.title), photo_path(tag.asset)) %>
+<% end %>

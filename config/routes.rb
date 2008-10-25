@@ -1,4 +1,5 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :friends
   map.resources :photos
   map.resource :password_reset
   map.resource :session
