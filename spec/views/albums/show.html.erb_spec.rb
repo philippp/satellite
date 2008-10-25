@@ -11,7 +11,7 @@ describe "/albums/show.html.erb" do
       :id => 1,
       :title => "value for title",
       :description => "value for description",
-      :asset_count => "1",
+      :assets_count => "1",
       :assets => [asset]
     )
     assigns[:page] = 0

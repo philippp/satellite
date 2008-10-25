@@ -4,7 +4,7 @@ class CreateAlbums < ActiveRecord::Migration
       t.string :title
       t.text :description
       t.integer :user_id
-      t.integer :asset_count, :default => 0
+      t.integer :assets_count, :default => 0
 
       t.timestamps
     end

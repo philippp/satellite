@@ -8,7 +8,7 @@ describe "/albums/new.html.erb" do
       :new_record? => true,
       :title => "value for title",
       :description => "value for description",
-      :asset_count => "1"
+      :assets_count => "1"
     )
   end
 

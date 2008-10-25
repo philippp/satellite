@@ -1,5 +1,7 @@
 module AssetsHelper
 
+  # this is used to show the context of where you are viewing assets
+  # so if you come from photos/index vs albums/show it can show a back link 
   def context
     if defined? @album
       "a_#{@album.id}"

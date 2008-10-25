@@ -31,7 +31,7 @@ class Asset < ActiveRecord::Base
 
   def before_create
     if self.attachable.respond_to?(:all_photos_album)
-      self.albums << self.attachable.all_photos_album.assets
+      self.albums << self.attachable.all_photos_album
     end
   end
 

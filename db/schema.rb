@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(:version => 20081024232531) do
     t.string   "title"
     t.text     "description"
     t.integer  "user_id"
-    t.integer  "asset_count"
+    t.integer  "assets_count", :default => 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end

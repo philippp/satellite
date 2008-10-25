@@ -4,10 +4,10 @@ one:
   title: MyString
   description: MyText
   user_id: 1
-  asset_count: 1
+  assets_count: 1
 
 two:
   title: MyString
   description: MyText
   user_id: 1
-  asset_count: 1
+  assets_count: 1

@@ -8,12 +8,12 @@ describe "/albums/index.html.erb" do
       stub_model(Album,
         :title => "value for title",
         :description => "value for description",
-        :asset_count => "1"
+        :assets_count => "1"
       ),
       stub_model(Album,
         :title => "value for title",
         :description => "value for description",
-        :asset_count => "1"
+        :assets_count => "1"
       )
     ]
   end

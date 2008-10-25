@@ -6,7 +6,7 @@ describe Album do
       :title => "value for title",
       :description => "value for description",
       :user_id => "1",
-      :asset_count => "1"
+      :assets_count => "1"
     }
   end
 
