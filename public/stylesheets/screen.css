@@ -87,3 +87,31 @@ display:block;
 height:1%;
 }
 
+/* Autocomplete */
+div.autocomplete {
+  margin:0px;  
+  padding:0px;  
+  width:250px;
+  background:#fff;
+  border:1px solid #888;
+  position:absolute;
+}
+
+div.autocomplete ul {
+  margin:0px;
+  padding:0px;
+  list-style-type:none;
+}
+
+div.autocomplete ul li.selected { 
+  background-color:#ffb;
+}
+
+div.autocomplete ul li {
+  margin:0;
+  padding:0.5em;
+  height:1em;
+  display:block;
+  list-style-type:none;
+  cursor:pointer;
+}

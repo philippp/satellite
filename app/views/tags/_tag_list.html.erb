@@ -1,5 +1,4 @@
 <script type="text/javascript">
-
   var update_tag_list = function( friend_name, tag_id ){
     tag_list = $("tag-list");
     new_tag_li = new Element("li").update(friend_name);
@@ -10,15 +9,13 @@
       tag_list.appendChild(new_tag_li);
     }
   }
-
-
 </script>
 
 Friends in this photo  
 <ul id="tag-list">
   <% asset.tags.each do |tag| %>
     <li id="tag-list-item-<%= tag.id %>" >
-      <%= tag.friend.name %>
+      <%= link_to tag.friend.name, friend_path(tag.friend) %>
 
       <%= link_to_remote( "Delete", { :url => user_user_asset_tag_url(:user_id => current_user.id, :user_asset_id => asset.id, :id => tag.id), 
                                       :method => :delete, 

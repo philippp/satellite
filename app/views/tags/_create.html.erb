@@ -1,16 +1,14 @@
 <script type="text/javascript" src="/javascripts/photo_tagger.js"></script>
-<script type="text/javascript">
-ptTags = <%= (asset.tags).to_json %> 
-var photo_tagger = new PhotoTagger("photo","tag_form",ptTags);
-</script>
 
 <% remote_form_for(:friend, {:url => user_user_asset_tags_path(:user_id => current_user.id, :user_asset_id => asset.id )}) do |f| %>
 
   Tag a friend:
-  <%= f.text_field :name %>
+  <%= f.text_field :name, :autocomplete => "off" %>
   
   <div id="create-tag-response" class="ajax-response"></div>
-  
+
+  <div id="friend-name-list" class="autocomplete" style="display:none;"></div>
+
   <%= submit_tag "Send!", :class=>"submit_button", :style=>"font-size: 1em;", :id => "tag_submit" %>
   <span id="tag_cancel_link">
     <%= link_to_function "(cancel)", "photo_tagger.cancelForm();" %>
@@ -22,3 +20,13 @@ var photo_tagger = new PhotoTagger("photo","tag_form",ptTags);
 
 <% end %>
 
+
+
+<script type="text/javascript">
+  ptTags = <%= (asset.tags).to_json %>
+  ptNames = <%= (asset.tags.map{|t| t.friend.name}).to_json %>
+ 
+  var photo_tagger = new PhotoTagger("photo","tag_form",ptTags);
+  new Autocompleter.Local('friend_name', 'friend-name-list', ptNames);
+
+</script>
