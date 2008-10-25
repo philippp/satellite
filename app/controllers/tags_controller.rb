@@ -17,8 +17,7 @@ class TagsController < ApplicationController
     respond_to do |format|
       if @tag and @tag.save
         format.js   { render(:update){ |page|
-            page << "photo_tagger.tags=#{@user_asset.reload.tags.to_json};"
-            page << "photo_tagger.reload_tags();"
+            page << "photo_tagger.update_tags(#{@user_asset.reload.tags.to_json});"
             page << "photo_tagger.show_tags();"
             page << "photo_tagger.cancelForm();"
             page.replace_html "tag-list", :partial => "tag_list", :locals => { :asset => @asset}
@@ -68,6 +67,7 @@ class TagsController < ApplicationController
   end
 
   def load_tag
+    tag_id = params[:id] || params[:tag_id] || (raise "id not specified")    
     @tag = Tag.find(params[:id]) || Tag.find(params[:tag_id]) 
   end
 

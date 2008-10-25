@@ -63,10 +63,13 @@ public
   # POST /assets
   # POST /assets.xml
   def create
-    @asset = assets.build(params[:asset])
+
+    if params[:asset][:uploaded_data].size > 0 
+      @asset = assets.build(params[:asset]) 
+    end
 
     respond_to do |format|
-      if @asset.save
+      if @asset and @asset.save
         flash[:notice] = 'Asset was successfully created.'
         format.html { redirect_to asset_url(@asset) }
         format.xml  { head :created, :location => asset_url(@asset) }
@@ -78,6 +81,14 @@ public
       else
         format.html { render :action => "new" }
         format.xml  { render :xml => @asset.errors.to_xml }
+        format.iframe {  
+          responds_to_parent do
+            render :update do |page|
+              page.hide :spinner
+              page << "$('asset_uploaded_data').value = ''"
+            end
+          end
+        }
       end
     end
   end

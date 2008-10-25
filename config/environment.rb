@@ -64,4 +64,10 @@ Rails::Initializer.run do |config|
 
   # Activate observers that should always be running
   # config.active_record.observers = :cacher, :garbage_collector
+  
+  #load frozen gems into our path
+  config.load_paths += Dir["#{RAILS_ROOT}/vendor/gems/**"].map do |dir|
+    File.directory?(lib = "#{dir}/lib") ? lib : dir
+  end
+
 end
