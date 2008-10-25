@@ -57,8 +57,8 @@ ActiveRecord::Schema.define(:version => 20081024232531) do
 
   create_table "friends", :force => true do |t|
     t.string   "name"
-    t.integer  "tags_count"
-    t.integer  "contacts_count"
+    t.integer  "tags_count",     :default => 0
+    t.integer  "contacts_count", :default => 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
