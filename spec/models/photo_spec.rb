@@ -6,7 +6,7 @@ describe Photo do
     }
   end
 
-  it "should create a new instance given valid attributes" do
+  it "should not create unless asset_id is specified" do
     Photo.create!(@valid_attributes)
   end
 end
