@@ -44,5 +44,10 @@ class Asset < ActiveRecord::Base
       self.title || ""
     end
   end
+  
+  def to_param
+    return "#{self.id}-#{self.title.gsub(/\W/,'-')}" if self.title
+    return self.id.to_s
+  end
 
 end
