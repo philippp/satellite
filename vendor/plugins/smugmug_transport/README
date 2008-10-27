@@ -1,0 +1,12 @@
+SmugmugTransport - a lightweight ruby interface for the SmugMug API
+
+HOWTO: 
+-----
+
+1. Define SMUGMUG_API_KEY in your rails project
+2. Copy this plugin into vendor/plugins
+3. Go to your project root and test it with 
+   rake smugmug_transport_test:auth 
+      and
+   rake smugmug_transport_test:import
+4. Look at the rake tasks as examples, and integrate into your sauce 
