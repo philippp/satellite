@@ -18,6 +18,7 @@ namespace :flickr do
 
     FlickrUser.find(:all).each{ |fu| fu.destroy }
     fu = FlickrUser.create!(:session => Marshal.dump(@flickr))
+    puts "You are authenticated! Start importing with 'rake flickr:import'"
   end
 
   
