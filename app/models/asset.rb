@@ -17,18 +17,25 @@
 #  parent_id       :integer(4)
 #
 
+
+
+  # Intialize this asset:
+  # 1. From an HTTP Post object via :uploaded_data
+  # 2. From a local filename via    :uploaded_filename
+  # 3. From a URL using             :uploaded_url
+
 class Asset < ActiveRecord::Base
   belongs_to :attachable, :polymorphic => true, :counter_cache => :assets_count
   has_many :tags
 
-  has_many :album_assets, :dependent => :destroy, :include => [:asset => [:datafile]]
+  has_many :album_assets, :dependent => :destroy
   has_many :albums, :through => :album_assets
 
   has_attachment :storage => :file_system,
     :thumbnails => { :bigthumb => '500x500>', :mediumthumb => '240x240>', :thumb => '120x120>', :tiny => '50x50>' },
     :max_size => 10.megabytes,
     :path_prefix => "public/assets"
-
+  
   def before_create
     if self.attachable.respond_to?(:all_photos_album) 
       self.albums << self.attachable.all_photos_album unless self.attachable.all_photos_album.nil?
