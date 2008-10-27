@@ -63,9 +63,10 @@ public
   # POST /assets
   # POST /assets.xml
   def create
+    @asset = assets.build(params[:asset]) 
 
     respond_to do |format|
-      if @asset and @asset.save
+      if @asset.save
         flash[:notice] = 'Asset was successfully created.'
         format.html { redirect_to asset_url(@asset) }
         format.xml  { head :created, :location => asset_url(@asset) }
