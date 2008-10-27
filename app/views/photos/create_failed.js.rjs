@@ -1,0 +1,3 @@
+page.hide :spinner
+page << "$('asset_uploaded_data').value = ''"
+

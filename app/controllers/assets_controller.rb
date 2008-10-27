@@ -64,10 +64,6 @@ public
   # POST /assets.xml
   def create
 
-    if params[:asset][:uploaded_data].size > 0 
-      @asset = assets.build(params[:asset]) 
-    end
-
     respond_to do |format|
       if @asset and @asset.save
         flash[:notice] = 'Asset was successfully created.'
@@ -83,10 +79,7 @@ public
         format.xml  { render :xml => @asset.errors.to_xml }
         format.iframe {  
           responds_to_parent do
-            render :update do |page|
-              page.hide :spinner
-              page << "$('asset_uploaded_data').value = ''"
-            end
+            render :template => "photos/create_failed.js.rjs"
           end
         }
       end

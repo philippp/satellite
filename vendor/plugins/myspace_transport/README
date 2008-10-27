@@ -1,0 +1,19 @@
+Myspace Transport Plugin
+
+Drop into your rails project and enjoy myspace photo import and export. 
+The core of this is lib/myspace_mech.rb. Two example rake tasks for 
+command-line import/export are included, as well as a monkeypatch to 
+make Net::HTTP more failure-tolerant. 
+
+Use of net_http_retrypatch is highly recommended (but not required) when scraping myspace.
+
+HOWTO: 
+-----
+
+1. Install the Mechanize gem, if you haven't already done so
+2. Copy this plugin into vendor/plugins
+3. Go to your project root and test it with 
+   rake myspace_transport:import 
+      and
+   rake myspace_transport:export
+4. Look at the rake tasks as examples, and integrate into your sauce 

@@ -222,16 +222,16 @@ context "Requesting /assets using POST" do
   end
   
   def do_post
-    post :create, :asset => {:name => 'Asset'}, :user_id => "joe"
+    post :create, :asset => {:name => 'Asset', :uploaded_data => 'foo'}, :user_id => "joe"
   end
   
   specify "should create a new asset" do
-    @assets.should_receive(:build).with({'name' => 'Asset'}).and_return(@asset)
+    @assets.should_receive(:build).with({'name' => 'Asset', 'uploaded_data' => 'foo'}).and_return(@asset)
     do_post
   end
 
   specify "should create a new asset" do
-    post :create, :asset => {:name => 'Asset'}, :user_id => "joe", :format => "iframe"
+    post :create, :asset => {:name => 'Asset', :uploaded_data => 'foo'}, :user_id => "joe", :format => "iframe"
     response.should render_template("photos/create.js.rjs")
   end
 
