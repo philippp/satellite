@@ -60,10 +60,11 @@ module Technoweenie # :nodoc:
         protected
           # Destroys the file.  Called in the after_destroy callback
           def destroy_file
+            return if filename.nil? # nothing to delete
             FileUtils.rm full_filename
             # remove directory also if it is now empty
             Dir.rmdir(File.dirname(full_filename)) if (Dir.entries(File.dirname(full_filename))-['.','..']).empty?
-          rescue
+          rescue 
             logger.info "Exception destroying  #{full_filename.inspect}: [#{$!.class.name}] #{$1.to_s}"
             logger.warn $!.backtrace.collect { |b| " > #{b}" }.join("\n")
           end
