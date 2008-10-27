@@ -6,10 +6,10 @@
 </div>
 
 <div class="clearfix">
-<%= pager @user.assets.size %>
+<%= pager @assets.size %>
 </div>
 
-<%= render :partial => "assets/assets_table", :locals => {:assets => @user.assets} %>
+<%= render :partial => "assets/assets_table", :locals => {:assets => @assets} %>
 
 <div class="clearfix">
 <%= pager @user.assets.size %>
