@@ -1,0 +1,5 @@
+--- 
+development: 
+  SMUGMUG_API_KEY: foo
+production: 
+  SMUGMUG_API_KEY: sdsdfdf
