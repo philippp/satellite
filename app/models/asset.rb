@@ -30,8 +30,8 @@ class Asset < ActiveRecord::Base
     :path_prefix => "public/assets"
 
   def before_create
-    if self.attachable.respond_to?(:all_photos_album)
-      self.albums << self.attachable.all_photos_album
+    if self.attachable.respond_to?(:all_photos_album) 
+      self.albums << self.attachable.all_photos_album unless self.attachable.all_photos_album.nil?
     end
   end
 
