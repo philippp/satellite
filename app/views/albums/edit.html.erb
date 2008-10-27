@@ -1,0 +1,11 @@
+<h1>Editing album</h1>
+
+<%= semantic_form_left_column_size(5) %>
+
+<% semantic_form_for(:album, :url => album_path(@album), :html => { :method => :put }) do |f| -%>
+  <%= render :partial => 'form', :object => f %>
+  <%= f.submit "Update" %>
+<% end -%>
+
+<%= link_to 'Show', @album %> |
+<%= link_to 'Back', albums_path %>

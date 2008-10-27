@@ -1,5 +1,15 @@
 module AssetsHelper
 
+  # this is used to show the context of where you are viewing assets
+  # so if you come from photos/index vs albums/show it can show a back link 
+  def context
+    if defined? @album
+      "a_#{@album.id}"
+    else
+      :all
+    end
+  end
+
   # todo: get rid of all of this code
   def asset_tag(asset, options = {}, autostart = "no")
     return "" unless asset

@@ -9,7 +9,26 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20081024073811) do
+ActiveRecord::Schema.define(:version => 20081024232531) do
+
+  create_table "album_assets", :force => true do |t|
+    t.integer  "album_id"
+    t.integer  "asset_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "album_assets", ["album_id"], :name => "index_album_assets_on_album_id"
+  add_index "album_assets", ["asset_id"], :name => "index_album_assets_on_asset_id"
+
+  create_table "albums", :force => true do |t|
+    t.string   "title"
+    t.text     "description"
+    t.integer  "user_id"
+    t.integer  "assets_count", :default => 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "assets", :force => true do |t|
     t.string   "filename"
@@ -76,6 +95,8 @@ ActiveRecord::Schema.define(:version => 20081024073811) do
     t.integer  "visits_count",                            :default => 0
     t.string   "permalink"
     t.string   "domain"
+    t.integer  "all_photos_album_id"
+    t.integer  "assets_count",                            :default => 0
   end
 
 end

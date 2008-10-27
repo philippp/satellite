@@ -5,7 +5,7 @@ class SemanticFormBuilder < ActionView::Helpers::FormBuilder
   
   def field_settings(method, options = {}, tag_value = nil)
     field_name = "#{@object_name}_#{method.to_s}"
-    default_label = tag_value.nil? ? "#{method.to_s.gsub(/\_/, " ")}" : "#{tag_value.to_s.gsub(/\_/, " ")}"
+    default_label = tag_value.nil? ? "#{method.to_s.gsub(/\_/, " ").capitalize}" : "#{tag_value.to_s.gsub(/\_/, " ")}"
     label = options[:label] ? options.delete(:label) : default_label
     options[:class] ||= ""
     options[:class] += options[:required] ? " required" : ""

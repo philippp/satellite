@@ -239,6 +239,10 @@ context "Requesting /users using POST" do
     User.stub!(:new).and_return(@user)
     @user.stub!("domain?").and_return(false)
     @user.stub!(:url).and_return("http://paul.#{DOMAIN}/")
+    @user.stub!(:remember_me)
+    @user.stub!(:remember_token).and_return('1111')
+    @user.stub!(:remember_token_expires_at).and_return(Time.now)
+    controller.stub!(:current_user).and_return(@user)
   end
 
   def do_post
@@ -254,6 +258,12 @@ context "Requesting /users using POST" do
     do_post
     response.should redirect_to("http://paul.#{DOMAIN}/")
   end
+
+  specify "should log user in" do
+    controller.should_receive("current_user=").with(@user)
+    do_post
+  end
+
 end
 
 context "Requesting /users/1 using PUT" do
