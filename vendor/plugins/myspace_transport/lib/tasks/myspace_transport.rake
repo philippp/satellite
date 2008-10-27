@@ -1,5 +1,5 @@
 # Demo command line tasks exercising / testing the myspace transport
-namespace :myspace_transport_test do
+namespace :myspace_transport do
   
   desc "Import photos from myspace"
   task( :import => :environment ) do

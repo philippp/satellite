@@ -13,7 +13,7 @@ HOWTO:
 1. Install the Mechanize gem, if you haven't already done so
 2. Copy this plugin into vendor/plugins
 3. Go to your project root and test it with 
-   rake myspace_transport_test:import 
+   rake myspace_transport:import 
       and
-   rake myspace_transport_test:export
+   rake myspace_transport:export
 4. Look at the rake tasks as examples, and integrate into your sauce 
