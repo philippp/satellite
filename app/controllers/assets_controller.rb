@@ -64,10 +64,6 @@ public
   # POST /assets.xml
   def create
 
-    if params[:asset][:uploaded_data].size > 0 
-      @asset = assets.build(params[:asset]) 
-    end
-
     respond_to do |format|
       if @asset and @asset.save
         flash[:notice] = 'Asset was successfully created.'
