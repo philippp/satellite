@@ -16,7 +16,7 @@ namespace :flickr do
       end
     end
 
-    FlickrUser.find(:all).each{ |fu| fu.destroy! }
+    FlickrUser.find(:all).each{ |fu| fu.destroy }
     fu = FlickrUser.create!(:session => Marshal.dump(@flickr))
   end
 
