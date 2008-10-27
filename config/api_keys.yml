@@ -1,5 +1,10 @@
 --- 
 development: 
   SMUGMUG_API_KEY: foo
+  FLICKR_API_SECRET: lolololololololololololololololo
+  FLICKR_API_SHARED: lulululululululu
+
 production: 
   SMUGMUG_API_KEY: sdsdfdf
+  FLICKR_API_SECRET: lolololololololololololololololo
+  FLICKR_API_SHARED: lulululululululu
