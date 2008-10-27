@@ -1,5 +1,8 @@
 module Technoweenie # :nodoc:
   module AttachmentFu # :nodoc:
+    
+    require 'open-uri'
+    
     @@default_processors = %w(ImageScience Rmagick MiniMagick Gd2 CoreImage)
     @@tempfile_path      = File.join(RAILS_ROOT, 'tmp', 'attachment_fu')
     @@content_types      = ['image/jpeg', 'image/pjpeg', 'image/gif', 'image/png', 'image/x-png', 'image/jpg']
@@ -357,6 +360,7 @@ module Technoweenie # :nodoc:
       #
       # TODO: Allow it to work with Merb tempfiles too.
       def uploaded_data=(file_data)
+        
         if file_data.respond_to?(:content_type)
           return nil if file_data.size == 0
           self.content_type = file_data.content_type
@@ -373,6 +377,34 @@ module Technoweenie # :nodoc:
         else
           self.temp_path = file_data
         end
+      end
+      
+      # This method loads a local file into the attachment.
+      # Simply add uploaded_filename into your instantiation parameters
+      def uploaded_filename=(file_path)
+        content_type = nil 
+
+        if Technoweenie::AttachmentFu::content_types.include? "image/#{file_path.split('.').last.downcase}"
+          content_type = "image/#{file_path.split('.').last.downcase}"
+        end
+
+        f_params = { 'filename' => file_path.split("/").last,
+                     'tempfile' => File.open(file_path),
+                     'content_type' => content_type}
+        self.uploaded_data = f_params
+      end
+      
+      def uploaded_url=(file_url)
+        content_type = nil 
+
+        if Technoweenie::AttachmentFu::content_types.include? "image/#{file_url.split('.').last.downcase}"
+          content_type = "image/#{file_url.split('.').last.downcase}"
+        end
+
+        f_params = { 'filename' => file_url.split("/").last,
+                     'tempfile' => open( file_url ),
+                     'content_type' => content_type}
+        self.uploaded_data = f_params        
       end
 
       # Gets the latest temp path from the collection of temp paths.  While working with an attachment,
