@@ -14,6 +14,8 @@ config.action_view.cache_template_loading            = true
 # Don't care if the mailer can't send
 config.action_mailer.raise_delivery_errors = false
 
+RAILS_GEM_VERSION = '2.1'
+
 ROUTE_DOMAIN = "heroku.com"
 DOMAIN = "#{ROUTE_DOMAIN}"
 
