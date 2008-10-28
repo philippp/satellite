@@ -13,20 +13,27 @@ namespace :heroku do
     
     find_or_create_heroku_instance
     
-    deploy_with_git
+    puts "Attempting to deploy with git via a system call"
+    Kernel.system("cd #{RAILS_ROOT}; git push -v -f git@heroku.com:#{@name}.git")    
     
-    config_heroku_runtime
+    temp_pass = random_string(8)
+    
+    @heroku_client.rake @name "heroku:initialize_environment"
+    @heroku_client.rake @name "db:migrate"
+    @heroku_client.rake @name "heroku:initialize_user name=#{@name} pass=#{temp_pass}"
+    @heroku_client.update( @home, :mode => 'production' ) 
+    puts "Log in as #{@name} with password #{temp_pass} at http://#{@name}.heroku.com"
   end
   
   
-  desc "Initialize a heroku-optimized environment"
+  desc "Copy Heroku environment files over deploy.rb and production.rb on the instance"
   task( :initialize_environment ) do
     require 'ftools'
     File.copy("#{RAILS_ROOT}/config/environments/heroku.rb", "#{RAILS_ROOT}/config/environments/development.rb") 
     File.copy("#{RAILS_ROOT}/config/environments/heroku.rb", "#{RAILS_ROOT}/config/environments/production.rb")   
   end
   
-  desc "Initialize a User on the Heroku instance"
+  desc "Initialize the first User on the Heroku instance"
   task( :initialize_user => :environment ) do
     
     unless ENV["name"] and ENV["pass"]
@@ -35,10 +42,12 @@ namespace :heroku do
           "and pass is the temporary password")
     end
 
-    unless( (u = User.find(:first)))
-      u = User.create(:name => ENV["name"])
+    if User.find(:first).nil?
+      u = User.create(:name => ENV["name"], :password => ENV["pass"])
     end
   end
+  
+  
 
   # 1. Create Heroku instance. If this succeeds, we assume the instance is created.
   def find_or_create_heroku_instance
@@ -59,8 +68,6 @@ namespace :heroku do
   
   # 2. Deploy the current state of the repository to Heroku
   def deploy_with_git
-    puts "Attempting to deploy with git via a system call"
-    Kernel.system("cd #{RAILS_ROOT}; git push -v -f git@heroku.com:#{@name}.git")    
   end
   
 #### Helpers
@@ -92,6 +99,14 @@ namespace :heroku do
   def die( msg )
     raise "---------------------------\n#{msg}\n-----------------------------"
   end
+  
+  def random_string( len )
+    chars = ("a".."z").to_a + ("A".."Z").to_a + ("0".."9").to_a
+    newpass = ""
+    1.upto(len) { |i| newpass << chars[rand(chars.size-1)] }
+    return newpass
+  end
+
   
 
 
