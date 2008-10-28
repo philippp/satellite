@@ -20,7 +20,7 @@ namespace :heroku do
     
     @heroku_client.rake @name "heroku:initialize_environment"
     @heroku_client.rake @name "db:migrate"
-    @heroku_client.rake @name "heroku:initialize_user name=#{@name} pass=#{temp_pass}"
+    @heroku_client.rake @name "heroku:initialize_user name=#{@name} email=#{ENV["hk_email"]} pass=#{temp_pass}"
     @heroku_client.update( @home, :mode => 'production' ) 
     puts "Log in as #{@name} with password #{temp_pass} at http://#{@name}.heroku.com"
   end
@@ -36,10 +36,11 @@ namespace :heroku do
   desc "Initialize the first User on the Heroku instance"
   task( :initialize_user => :environment ) do
     
-    unless ENV["name"] and ENV["pass"]
-      die("Usage: rake heroku:initialize_user name=... pass=...\n"+
-          "where name is the name of the heroku instance and first user\n"+
-          "and pass is the temporary password")
+    unless ENV["name"] and ENV["pass"] and env["email"]
+      die("Usage: rake heroku:initialize_user name=... pass=... email=...\n"+
+          "name : Name of the Heroku instance and first user\n"+
+          "pass : Temporary password\n"+
+          "email: Email contact")
     end
 
     if User.find(:first).nil?
