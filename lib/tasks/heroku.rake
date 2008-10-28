@@ -18,14 +18,16 @@ namespace :heroku do
     
     temp_pass = random_string(8)
     
-    puts "Initializing Heroku production environment"
+    puts "Creating Heroku production environment"
     @heroku_client.rake @name, "heroku:initialize_environment"
+    puts "Initializing Production Environment"
+    @heroku_client.update( @name, { :production => true } )
     puts "Initial data migration"
     @heroku_client.rake @name, "db:migrate"
     puts "Creating first user"
-    @heroku_client.rake @name, "heroku:initialize_user name=#{@name} email=#{ENV["hk_email"]} pass=#{temp_pass}"
-    puts "Starting and exposing the Heroku instance"
-    @heroku_client.update( @name, { :production => true, :share_public => 'true'} ) 
+    @heroku_client.rake @name, "heroku:initialize_user name=#{@name} email=#{ENV["hk_email"]} pass=#{temp_pass} RAILS_ENV=production"
+    puts "Exposing the Heroku instance"
+    @heroku_client.update( @name, { :share_public => 'true'} ) 
     puts ".--------------------------------------------------------------------------\n"+
          "|All done!\n"+
          "|Log in as #{@name} with password #{temp_pass} at http://#{@name}.heroku.com\n"+
@@ -44,7 +46,7 @@ namespace :heroku do
   desc "Initialize the first User on the Heroku instance"
   task( :initialize_user => :environment ) do
     
-    unless ENV["name"] and ENV["pass"] and env["email"]
+    unless ENV["name"] and ENV["pass"] and ENV["email"]
       die("Usage: rake heroku:initialize_user name=... pass=... email=...\n"+
           "name : Name of the Heroku instance and first user\n"+
           "pass : Temporary password\n"+
