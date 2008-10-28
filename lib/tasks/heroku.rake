@@ -9,7 +9,7 @@ namespace :heroku do
   task( :deploy => :environment ) do
     pre_configure
     @name = ENV["name"]
-    @heroku_client = Heroku::Client.new(ENV["hk_email"], ENV["hk_pass"])
+    @heroku_client = Heroku::Client.new(ENV["hk_email"], ENV["hk_password"])
     
     find_or_create_heroku_instance
     
@@ -57,7 +57,7 @@ namespace :heroku do
      puts "Found existing instance '#{name}':"; pp info
     rescue RestClient::ResourceNotFound
       begin
-        @heroku_client.create name
+        @heroku_client.create @name
         info = @heroku_client.info @name 
         puts "Created new instance '#{name}':"; pp info
       rescue Exception => e
@@ -77,11 +77,12 @@ namespace :heroku do
   def pre_configure
     
     # Command-line params
-    unless ENV.include? ("name") and ENV.include? ("hk_email") and ENV.include? ("hk_pass")  
-      die "Usage: rake heroku_config:initialize name=... hk_email=... hk_pass=..."+
-          "       name:     the new instance name\n"+
-          "       hk_email: your Heroku login email\n"+
-          "       hk_pass:  your Heroku password"
+    unless ENV.include? ("name") and ENV.include? ("hk_email") and ENV.include? ("hk_password")  
+      die "Usage: rake heroku_config:initialize name=... hk_email=... hk_password=...\n"+
+          "Where:\n"+
+          "       name:         the new instance name\n"+
+          "       hk_email:     your Heroku login email\n"+
+          "       hk_password:  your Heroku password"
     end
     
     # Pre-requisites
