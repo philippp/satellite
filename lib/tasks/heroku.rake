@@ -21,8 +21,12 @@ namespace :heroku do
     @heroku_client.rake @name, "heroku:initialize_environment"
     @heroku_client.rake @name, "db:migrate"
     @heroku_client.rake @name, "heroku:initialize_user name=#{@name} email=#{ENV["hk_email"]} pass=#{temp_pass}"
-    @heroku_client.update( @home, :mode => 'production' ) 
-    puts "Log in as #{@name} with password #{temp_pass} at http://#{@name}.heroku.com"
+    @heroku_client.update( @name, { :mode => 'production', :public => 'true'} ) 
+    puts ".--------------------------------------------------------------------------\n"+
+         "|All done!\n"
+         "|Log in as #{@name} with password #{temp_pass} at http://#{@name}.heroku.com\n"+
+         "'-------------------------------------------------------------------------"
+
   end
   
   
@@ -54,12 +58,12 @@ namespace :heroku do
   def find_or_create_heroku_instance
     begin 
      info = @heroku_client.info @name 
-     puts "Found existing instance '#{name}':"; pp info
+     puts "Found existing instance '#{@name}':"; pp info
     rescue RestClient::ResourceNotFound
       begin
         @heroku_client.create @name
         info = @heroku_client.info @name 
-        puts "Created new instance '#{name}':"; pp info
+        puts "Created new instance '#{@name}':"; pp info
       rescue Exception => e
       die "Failed to find or create Heroku instance '#{ENV['name']}'\n#{e.inspect}\n"+
           "Try creating it in Heroku's web interface."
