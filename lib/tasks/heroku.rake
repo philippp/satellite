@@ -18,9 +18,9 @@ namespace :heroku do
     
     temp_pass = random_string(8)
     
-    @heroku_client.rake @name "heroku:initialize_environment"
-    @heroku_client.rake @name "db:migrate"
-    @heroku_client.rake @name "heroku:initialize_user name=#{@name} email=#{ENV["hk_email"]} pass=#{temp_pass}"
+    @heroku_client.rake @name, "heroku:initialize_environment"
+    @heroku_client.rake @name, "db:migrate"
+    @heroku_client.rake @name, "heroku:initialize_user name=#{@name} email=#{ENV["hk_email"]} pass=#{temp_pass}"
     @heroku_client.update( @home, :mode => 'production' ) 
     puts "Log in as #{@name} with password #{temp_pass} at http://#{@name}.heroku.com"
   end
