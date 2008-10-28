@@ -22,7 +22,7 @@ namespace :heroku do
     @heroku_client.rake @name, "heroku:initialize_environment"
     puts "Initial data migration"
     @heroku_client.rake @name, "db:migrate"
-    puts "Creating first user"
+    puts "Creating first user name=#{@name} email=#{ENV["hk_email"]} pass=#{temp_pass}"
     @heroku_client.rake @name, "heroku:initialize_user name=#{@name} email=#{ENV["hk_email"]} pass=#{temp_pass}"
     puts "Starting and exposing the Heroku instance"
     @heroku_client.update( @name, { :production => true, :share_public => 'true'} ) 
@@ -52,7 +52,7 @@ namespace :heroku do
     end
 
     if User.find(:first).nil?
-      u = User.create(:login => ENV["name"], :password => ENV["pass"], :email => ENV["email"])
+      u = User.create(:login => ENV["name"], :password => ENV["pass"], :password_confirmation => ENV["pass"], :email => ENV["email"])
     end
   end
   
