@@ -18,6 +18,14 @@ namespace :heroku do
     config_heroku_runtime
   end
   
+  
+  desc "Initialize a heroku-optimized environment"
+  task( :initialize_environment ) do
+    require 'ftools'
+    File.copy("#{RAILS_ROOT}/config/environments/heroku.rb", "#{RAILS_ROOT}/config/environments/development.rb") 
+    File.copy("#{RAILS_ROOT}/config/environments/heroku.rb", "#{RAILS_ROOT}/config/environments/production.rb")   
+  end
+  
   desc "Initialize a User on the Heroku instance"
   task( :initialize_user => :environment ) do
     
@@ -30,9 +38,6 @@ namespace :heroku do
     unless( (u = User.find(:first)))
       u = User.create(:name => ENV["name"])
     end
-    require 'ftools'
-    File.copy("#{RAILS_ROOT}/config/environments/heroku.rb", "#{RAILS_ROOT}/config/environments/development.rb") 
-    File.copy("#{RAILS_ROOT}/config/environments/heroku.rb", "#{RAILS_ROOT}/config/environments/production.rb") 
   end
 
   # 1. Create Heroku instance. If this succeeds, we assume the instance is created.
