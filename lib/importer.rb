@@ -2,13 +2,13 @@
 # We create an ImportRecord for the object and service on first import. 
 # We report that the object has been imported, allowing for easy tracking
 # of imports independent of objects.
-# 
+#--
 # Usage example: 
 # importer = Importer.new(Photo, "flickr", build)
 # unless importer.has_imported?("flickrid_23423234324434")
-#    new_photo = importer.import(new_photo_params)
+#   new_photo = importer.import(new_photo_params)
 # end
-
+#++
 class  Importer
 
   attr_reader :imported_class

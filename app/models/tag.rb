@@ -1,3 +1,4 @@
+# Associates an +Asset+ and a +Friend+. Tagging a +Friend+ in a +Photo+ creates a +Tag+ associated with the +Friend+ and the +Photo+'s +Asset+.  
 class Tag < ActiveRecord::Base
 
   belongs_to :friend

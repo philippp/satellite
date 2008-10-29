@@ -1,32 +1,43 @@
+# A +Friend+ represents an individual who is relevant to the +User+. Points of contact are stored as +Contact+ instances and associated with the +Friend+. A +Friend+ may also be associated with an +Assets+ by the creation of a +Tag+.
 class Friend < ActiveRecord::Base
 
   validates_presence_of :name
   has_many :tags, :dependent => :destroy
   has_many :contacts, :dependent => :destroy do
+    # All email addresses associated with this friend
     def find_emails
       find_contact_details("email")
     end
-
+    
+    # All Facebook IDs associated with this +Friend+
     def find_facebook
-      find_contact_details("facebook")
+      # All Facebook IDs associated with this friend
+      find_contact_details("facebook") 
     end
 
+    # Find +Contact+ of this +Friend+ by specified +email+ 
     def find_by_email(email)
       find_of_type_with_detail("email", email)
     end
 
+    # Find +Contacts+ of this +Friend+ by type (ex: email) and detail/point (ex: phil@deluux.com)
     def find_of_type_with_detail(type, detail)
       find(:first, :conditions => ["contacts.contact_type = ? AND contacts.point = ?", type, detail])
     end
-
+    
+    # Find all +Contacts+ of specified +type+ belonging to this +Friend+ 
     def find_contact_type(type)
       find(:all, :conditions => ["contact_type = ?", type])
     end
   end
 
   
-  # Create a Contact and Friend if Friend is not found. 
-  # Formats submitted name.
+  # Initializes a Contact and Friend instance if none exists.
+  # This function strips the formatted name of non-alphanumeric symbols after 
+  # attempting to extract an email address.
+  # name::   Best-guess name of this friend
+  # email::   Optional known email. 
+  # source:: Optional source id
   def self.lookup_or_initialize_by_name(name, email=nil, source=nil)    
     if name.include? '('
       name = name.split("(")[0].strip
@@ -57,12 +68,17 @@ class Friend < ActiveRecord::Base
     friend
   end
   
+  # Creates a Contact and Friend instance if none exists. Wraps +lookup_or_initialize_by_name+.
+  # name:: Best-guess name of this friend
+  # email:: Optional known email. 
+  # source:: Optional source id  
   def self.lookup_or_create_by_name(name, email=nil, source=nil)
     friend = lookup_or_initialize_by_name(name, email, source)
     friend.save
     friend
   end
   
+  # Descriptive ID
   def to_param
     return "#{self.id}-#{self.name.gsub(/\W/,'-')}" if self.name
     return self.id.to_s

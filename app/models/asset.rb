@@ -19,11 +19,11 @@
 
 
 
-  # Intialize this asset:
-  # 1. From an HTTP Post object via :uploaded_data
-  # 2. From a local filename via    :uploaded_filename
-  # 3. From a URL using             :uploaded_url
-
+  # Assets are descriptive references to binary files. Assets are instantiated in one of three ways:
+  # 1. From an HTTP Post object via :uploaded_data. Post a new asset instance from an HTML form and name the file form element "uploaded_data."
+  # 2. From a local filename via :uploaded_filename. If you are importing from the local filesystem, specify the full path and filename of the desired file as a string. 
+  # 3. From a URL using :uploaded_url, set to the desired file's URL 
+  # The properties of Assets are inherited by the specific media classes, such as +Photo+.
 class Asset < ActiveRecord::Base
   belongs_to :attachable, :polymorphic => true, :counter_cache => :assets_count
   has_many :tags
